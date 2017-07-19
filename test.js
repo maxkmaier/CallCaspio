@@ -6,7 +6,7 @@ var userName = config.clientID; // app clientID
 var passWord = config.clientSecret; // app clientSecret
 var caspioTokenUrl = config.tokenEndpoint; // Your application token endpoint  
 var request = new XMLHttpRequest(); 
-var extend = require('extend');
+var _ = require('underscore');
 
 function getToken(url, clientID, clientSecret) {
     var key;           
@@ -29,22 +29,21 @@ getToken(caspioTokenUrl, userName, passWord);
 
 function CallWebAPI() {
     var pkLimit = 3;
-    //var text = {};
+    var newresponse;
     var i;
     for (i = 0; i < pkLimit; i++){
     var request_ = new XMLHttpRequest();        
     var encodedParams = encodeURIComponent(params);
-    request_.open("GET", config.resourceEndpoint + '/tables/Dim_Driver/rows?q=%7B%22limit%22%3A1000%2C%20%22where%22%3A%22PK_ID%3E%20'+i+'000'+'%22%7D%20', true);
+    request_.open("GET", config.resourceEndpoint + '/tables/Dim_Driver/rows?q=%7B%22limit%22%3A1000%2C%20%22where%22%3A%22PK_ID%3E%20'+i+'000'+'%22%7D%20', false);
     request_.setRequestHeader("Authorization", "Bearer "+ token_);
     request_.send();
     request_.onreadystatechange = function () {
         if (request_.readyState == request.DONE) {
-            var text = ""
             var response = request_.responseText;
-            var obj = JSON.parse(response); 
+            newresponse = _.extend({}, newresponse, response);
+            //var obj = JSON.parse(newresponse); 
             // handle data as needed... 
-            obj += text;
-            console.log(text);
+            console.log(newresponse);
         }
     }
     }
