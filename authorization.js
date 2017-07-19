@@ -28,7 +28,7 @@ getToken(caspioTokenUrl, userName, passWord);
 function CallWebAPI() {
     var request_ = new XMLHttpRequest();        
     var encodedParams = encodeURIComponent(params);
-    request_.open("GET", config.resourceEndpoint + '/tables/Dim_Driver/rows?q=%7B%22select%22%3A%22PK_ID%22%2Cfilter%22%3A%22total%22%7D', true);
+    request_.open("GET", config.resourceEndpoint + '/tables/Dim_Driver/rows?q=%7B%22limit%22%3A1000%2C%20%22where%22%3A%22PK_ID%3E%201000%22%7D%20', true);
     request_.setRequestHeader("Authorization", "Bearer "+ token_);
     request_.send();
     request_.onreadystatechange = function () {
