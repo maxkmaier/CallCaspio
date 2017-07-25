@@ -33,7 +33,7 @@ function CallWebAPI() {
     for (i = 0; i < pkLimit; i++){
     var request_ = new XMLHttpRequest();        
     var encodedParams = encodeURIComponent(params);
-    request_.open("GET", config.resourceEndpoint + '/tables/Dim_Driver/rows?q=%7~B%22select%22%3A%22Email%22%2C%22limit%22%3A1000%2C%20%22where%22%3A%22PK_ID%3E%20'+i+'000'+'%22%7D%20', false);
+    request_.open("GET", config.resourceEndpoint + '/tables/Dim_Driver/rows?q=%7B%22select%22%3A%22PK_ID%2C%20Driveruuid%22%2C%22limit%22%3A1000%2C%20%22where%22%3A%22PK_ID%3E%20'+i+'000'+'%22%7D%20', false);
     request_.setRequestHeader("Authorization", "Bearer "+ token_);
     request_.onreadystatechange = function ()
     {
